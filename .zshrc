@@ -53,7 +53,9 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
-
+alias ff='fastfetch'
+alias nf='neofetch'
+alias f='ranger'
 # Core Utils Aliases
 alias l='eza -lh  --icons=auto'
 alias ls='eza -1   --icons=auto' # short list
@@ -69,7 +71,6 @@ alias vim='nvim'
 alias grep='rg --color=auto'
 alias dld='aria2c --split=16 --max-connection-per-server=16 --timeout=600 --max-download-limit=10M --file-allocation=none'
 alias bhandari='brew update && brew upgrade'
-
 # Downloads Aliases
 alias yd='yt-dlp -f "bestvideo+bestaudio" --embed-chapters --external-downloader aria2c --concurrent-fragments 8 --throttled-rate 100K'
 
