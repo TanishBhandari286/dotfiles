@@ -5,9 +5,21 @@ set -e
 DOTFILES_DIR="$HOME/dotfiles"
 CONFIG_DIR="$HOME/.config"
 
+# Step 1: Install Homebrew if not installed
+if ! command -v brew &>/dev/null; then
+  echo "Homebrew not found, installing..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  echo "Homebrew is already installed"
+fi
+
+# Step 2: Install stow via Homebrew
+echo "Installing stow..."
+brew install stow
+
+# Step 3: Link configs to $CONFIG_DIR
 echo "🔗 Linking configs to $CONFIG_DIR"
 
-# Link everything from dotfiles/.config to ~/.config
 cd "$DOTFILES_DIR/.config"
 
 for name in *; do
@@ -22,6 +34,7 @@ for name in *; do
   fi
 done
 
+# Step 4: Link top-level files (like Brewfile) to home directory
 echo ""
 echo "🔗 Linking top-level files (like Brewfile) to home directory"
 
@@ -38,6 +51,7 @@ for file in Brewfile; do
   fi
 done
 
+# Step 5: Run brew bundle if desired
 echo ""
 read -p "🍺 Run 'brew bundle' from Brewfile now? [y/N] " brew_now
 if [[ "$brew_now" =~ ^[Yy]$ ]]; then
