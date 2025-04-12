@@ -1,4 +1,5 @@
 cask "ghidra"
+cask "notion"
 cask "proton-pass"
 brew "starship"
 cask "clockify"
