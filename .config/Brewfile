@@ -1,6 +1,7 @@
 cask "ghidra"
 cask "notion"
 cask "webstorm"
+brew "bear"
 cask "proton-pass"
 brew "starship"
 cask "clockify"
