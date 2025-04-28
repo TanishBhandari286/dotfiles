@@ -148,6 +148,7 @@ export EDITOR=nvim
 alias run="~/git/run"
 
 
+
 eval "$(atuin init zsh)"
 
 export NVM_DIR="$HOME/.config/nvm"
