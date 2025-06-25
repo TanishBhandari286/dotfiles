@@ -1,0 +1,45 @@
+#!/bin/zsh
+
+BREWFILE="$HOME/.config/Brewfile"
+
+gum style --bold --foreground 212 "🔄 Checking for system software updates..."
+SYS_UPDATES=$(softwareupdate -l 2>&1)
+
+if echo "$SYS_UPDATES" | grep -q '\*.*Label:'; then
+  gum style --bold --foreground 11 "⚠️  macOS update available!"
+  echo "$SYS_UPDATES" | grep '\*.*Label:' | sed 's/^.*Label: //'
+  
+  if gum confirm "🚨 System update found. Install it now and skip the rest?"; then
+    sudo softwareupdate -iaR
+    gum style --bold --foreground 45 "💡 Come back and run macupdate again after reboot."
+    exit 0
+  else
+    gum style --foreground 208 "⚠️ You chose to skip system update. Proceeding anyway..."
+  fi
+else
+  gum style --foreground 35 "✅ No system updates found. Continuing..."
+fi
+
+gum style --bold --foreground 33 "⬆️  Updating Homebrew..."
+brew update
+
+gum style --bold --foreground 33 "📦 Upgrading installed formulae and casks..."
+brew upgrade
+
+gum style --bold --foreground 241 "🧹 Cleaning up outdated packages..."
+brew cleanup
+
+gum style --bold --foreground 38 "📋 Verifying Brewfile consistency..."
+brew bundle check --file="$BREWFILE" || gum style --foreground 11 "⚠️ Brewfile is missing some installed apps."
+
+gum confirm "🧨 Clean up & zap unlisted casks?" && {
+  REMOVED=$(brew bundle cleanup --file="$BREWFILE" --force 2>&1 | tee /dev/tty)
+
+  echo "$REMOVED" | grep '^Removing cask ' | sed 's/^Removing cask //' | while read -r app; do
+    gum style --foreground 9 "🧨 Zapping $app..."
+    zap "$app"
+  done
+}
+
+gum style --bold --foreground 35 "✅ Mac update complete!"
+

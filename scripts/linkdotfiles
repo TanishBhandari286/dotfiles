@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+DOTFILES="$HOME/dotfiles"
+
+gum style --bold --foreground 212 "🔗 Linking dotfiles to your system..."
+
+LINKS=(
+  "$DOTFILES/.config/atuin:$HOME/.config/atuin"
+  "$DOTFILES/.config/ghostty:$HOME/.config/ghostty"
+  "$DOTFILES/.config/karabiner:$HOME/.config/karabiner"
+  "$DOTFILES/.config/nvim:$HOME/.config/nvim"
+  "$DOTFILES/.config/wezterm:$HOME/.config/wezterm"
+  "$DOTFILES/.config/starship.toml:$HOME/.config/starship.toml"
+  "$DOTFILES/.config/Brewfile:$HOME/.config/Brewfile"
+  "$DOTFILES/.zshrc:$HOME/.zshrc"
+  "$DOTFILES/.tmux.conf:$HOME/.tmux.conf"
+)
+
+for pair in "${LINKS[@]}"; do
+  src="${pair%%:*}"
+  dest="${pair##*:}"
+
+  # If dest exists and is NOT a symlink, back it up
+  if [[ -e "$dest" && ! -L "$dest" ]]; then
+    gum style --foreground 11 "📦 Backing up: $dest → $dest.bak"
+    mv "$dest" "$dest.bak"
+  fi
+
+  # Create symlink
+  ln -sf "$src" "$dest"
+  gum style --foreground 10 "🔗 Linked: $dest → $src"
+done
+
+gum style --bold --foreground 35 "✅ All dotfiles linked safely!"
+

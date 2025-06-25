@@ -1,0 +1,41 @@
+#!/bin/zsh
+
+BREWFILE="$HOME/.config/Brewfile"
+
+# 1. Choose brew type with gum
+TYPE=$(gum choose "brew" "cask")
+
+# 2. Prompt for app name
+APP=$(gum input --placeholder "Enter the exact app name")
+
+# 3. Validate input
+if [[ -z "$APP" ]]; then
+  echo "❌ App name cannot be empty."
+  exit 1
+fi
+
+# 4. Check for duplicates
+ENTRY="$TYPE \"$APP\""
+if grep -Fxq "$ENTRY" "$BREWFILE"; then
+  gum style --foreground 212 "✅ $ENTRY already exists in Brewfile."
+else
+  echo "$ENTRY" >> "$BREWFILE"
+  gum style --foreground 10 "➕ Added $ENTRY to Brewfile."
+fi
+
+# 5. Install via Brewfile
+gum style --bold --foreground 33 "⚙️ Installing apps..."
+brew bundle --file="$BREWFILE"
+
+# 6. Cleanup + zap
+gum style --bold --foreground 208 "🧹 Cleaning up unlisted brews and casks..."
+REMOVED=$(brew bundle cleanup --force --file="$BREWFILE" 2>&1 | tee /dev/tty)
+
+# 7. Zap removed casks
+echo "$REMOVED" | grep '^Removing cask ' | sed 's/^Removing cask //' | while read -r app; do
+  gum style --foreground 9 "🧨 Zapping $app..."
+  zap "$app"
+done
+
+gum style --bold --foreground 35 "✅ Install and cleanup complete."
+

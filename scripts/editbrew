@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+BREWFILE="$HOME/.config/Brewfile"
+[[ -f "$BREWFILE" ]] || touch "$BREWFILE"
+
+# Choose editor interactively
+EDITOR=$(gum choose "nvim" "vim" "nano" "code")
+
+# Styled message
+gum style --bold --foreground 36 "📝 Opening Brewfile with $EDITOR..."
+$EDITOR "$BREWFILE"
+
