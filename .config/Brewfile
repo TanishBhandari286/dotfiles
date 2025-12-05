@@ -1,5 +1,6 @@
 tap "cmacrae/formulae"
 cask "copyq"
+cask "cardinal-search"
 brew "ranger"
 brew "bash"
 cask "chatgpt"

@@ -79,6 +79,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias c='clear'
 alias v='nvim'
 alias l='eza -lh  --icons=auto'
 alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
