@@ -1,0 +1,17 @@
+# ~/.config/ghostty/config
+
+# Theme
+theme = Rose Pine
+
+# Font (Change to your preferred Nerd Font)
+font-family = "JetBrainsMono Nerd Font"
+font-size = 18
+
+# Hyprland-style Minimalism
+window-decoration = false
+window-padding-x = 10
+window-padding-y = 10
+background-opacity = 1.0
+# Behavior
+cursor-style = block
+cursor-style-blink = false

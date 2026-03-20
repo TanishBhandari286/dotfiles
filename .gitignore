@@ -1,0 +1,9 @@
+# Ignore raw SSH private/public keys
+**/.ssh/id_ed25519
+**/.ssh/id_ed25519.pub
+
+# Keep the encrypted versions
+!**/.ssh/*.age
+
+# Ignore macOS junk
+.DS_Store

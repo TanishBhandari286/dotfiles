@@ -1,0 +1,42 @@
+# ~/.zshrc
+
+# --- 1. Environment & Paths ---
+export PATH="/opt/homebrew/bin:$PATH"
+export EDITOR="nvim"
+
+# --- 2. History Settings ---
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt APPEND_HISTORY          # Append to history file instead of replacing
+setopt SHARE_HISTORY           # Share history across all open Ghostty tabs
+setopt HIST_IGNORE_ALL_DUPS    # Don't record duplicated commands
+setopt HIST_REDUCE_BLANKS      # Remove extra blanks from commands
+
+# --- 3. Vim Keybindings ---
+bindkey -v                     # Enable Vim mode on the command line
+export KEYTIMEOUT=1            # Make switching to normal mode (Esc) instantaneous
+
+# --- 4. Fast Completions ---
+# This caching trick prevents compinit from slowing down your terminal startup
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+# --- 5. Plugins ---
+# Sourcing directly from Homebrew is the fastest loading method
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Custom highlight colors to match Rosé Pine better (optional)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#908caa" # Rosé Pine muted text
+#Aliases
+alias e='exit'
+# --- 6. Prompt ---
+# Initialize Starship (Must be at the end of the file)
+eval "$(starship init zsh)"
+# --- 7. Zoxide (Smarter cd) ---
+eval "$(zoxide init zsh --cmd cd)"
