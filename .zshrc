@@ -35,6 +35,8 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#908caa" # Rosé Pine muted text
 #Aliases
 alias e='exit'
+alias c='clear'
+alias v='nvim'
 # --- 6. Prompt ---
 # Initialize Starship (Must be at the end of the file)
 eval "$(starship init zsh)"
