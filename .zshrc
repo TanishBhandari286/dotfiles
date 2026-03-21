@@ -3,7 +3,7 @@
 # --- 1. Environment & Paths ---
 export PATH="/opt/homebrew/bin:$PATH"
 export EDITOR="nvim"
-
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 # --- 2. History Settings ---
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -37,8 +37,10 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#908caa" # Rosé Pine muted text
 alias e='exit'
 alias c='clear'
 alias v='nvim'
+alias ls='eza'
 # --- 6. Prompt ---
 # Initialize Starship (Must be at the end of the file)
 eval "$(starship init zsh)"
 # --- 7. Zoxide (Smarter cd) ---
 eval "$(zoxide init zsh --cmd cd)"
+
