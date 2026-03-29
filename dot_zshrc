@@ -37,8 +37,6 @@ fi
 
 # --- 5. Plugins ---
 # Sourcing directly from Homebrew is the fastest loading method
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Custom highlight colors to match Rosé Pine better (optional)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#908caa" # Rosé Pine muted text
@@ -58,3 +56,6 @@ alias zdot="chezmoi edit ~/.zshrc"
 alias tdot="chezmoi edit ~/.tmux.conf"
 alias ndot="chezmoi edit ~/.config/nvim/init.lua"
 unset zle_bracketed_paste
+
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
