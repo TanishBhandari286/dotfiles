@@ -44,3 +44,7 @@ eval "$(starship init zsh)"
 # --- 7. Zoxide (Smarter cd) ---
 eval "$(zoxide init zsh --cmd cd)"
 
+alias checkup='echo "Target: $(hostname)"; [ -f ~/.ssh/id_ed25519 ] && echo "✅ SSH Key Decrypted" || echo "❌ SSH Key Missing"; [ -d ~/.tmux/plugins/tpm ] && echo "✅ TPM Installed" || echo "❌ TPM Missing"'
+alias zdot="chezmoi edit ~/.zshrc"
+alias tdot="chezmoi edit ~/.tmux.conf"
+alias ndot="chezmoi edit ~/.config/nvim/init.lua"
