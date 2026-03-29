@@ -1,5 +1,14 @@
 # ~/.zshrc
+# --- Terminal Compatibility Fix ---
+# If the system doesn't know what 'xterm-ghostty' is, fall back to standard xterm
+if [[ "$TERM" == "xterm-ghostty" ]]; then
+  if ! infocmp xterm-ghostty >/dev/null 2>&1; then
+    export TERM=xterm-256color
+  fi
+fi
 
+# Fix for trailing characters on paste (The "E" fix)
+unset zle_bracketed_paste
 # --- 1. Environment & Paths ---
 export PATH="/opt/homebrew/bin:$PATH"
 export EDITOR="nvim"
