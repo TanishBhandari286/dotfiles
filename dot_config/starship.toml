@@ -10,7 +10,6 @@ $git_status\
 $nodejs\
 $kubernetes\
 \n$character"""
-
 # Rosé Pine Palette
 palette = 'rose_pine'
 

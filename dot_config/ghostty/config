@@ -5,7 +5,7 @@ theme = Rose Pine
 
 # Font (Change to your preferred Nerd Font)
 font-family = "JetBrainsMono Nerd Font"
-font-size = 18
+font-size = 21
 
 # Hyprland-style Minimalism
 window-decoration = false
