@@ -48,3 +48,4 @@ alias checkup='echo "Target: $(hostname)"; [ -f ~/.ssh/id_ed25519 ] && echo "✅
 alias zdot="chezmoi edit ~/.zshrc"
 alias tdot="chezmoi edit ~/.tmux.conf"
 alias ndot="chezmoi edit ~/.config/nvim/init.lua"
+unset zle_bracketed_paste
