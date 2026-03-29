@@ -16,7 +16,7 @@ fi
 
 # 2. Initialize and Apply
 # This clones your repo and places .zshrc in ~/ automatically
-chezmoi init --apply --branch main https://github.com/TanishBhandari286/dotfiles.git
+chezmoi init --apply --branch main https://github.com/TanishBhandari286/dotfiles
 
 # 3. Post-install for Mac
 if [[ "$OSTYPE" == "darwin"* ]]; then
