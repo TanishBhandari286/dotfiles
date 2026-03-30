@@ -3,7 +3,7 @@ set -e
 
 echo "🚀 Starting Unified Dotfiles Bootstrap..."
 
-# 1. Install Homebrew (Logic remains the same...)
+# 1. Install Homebrew
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "🍎 Mac M2 detected"
   if ! command -v brew &>/dev/null; then
@@ -23,21 +23,12 @@ fi
 brew install chezmoi
 
 # 3. Apply Dotfiles
-# We init with HTTPS because it's public and doesn't need a key yet...
 chezmoi init --apply --branch main https://github.com/TanishBhandari286/dotfiles.git
 
 # --- AUTO-FIX SECTION ---
-echo "🔧 Auto-fixing Git Remote and Permissions..."
-
-# Fix 1: Switch the source repo to SSH so 'gsync' works without passwords
-chezmoi cd -- git remote set-url origin git@github.com:TanishBhandari286/dotfiles.git
-
-# Fix 2: Force correct SSH permissions
-if [ -f "$HOME/.ssh/id_ed25519" ]; then
-  chmod 600 "$HOME/.ssh/id_ed25519"
-  chmod 644 "$HOME/.ssh/id_ed25519.pub"
-fi
-# -------------------------
+echo "🔧 Auto-fixing Git Remote..."
+# Using 'git --' instead of 'cd' to avoid argument errors
+chezmoi git -- remote set-url origin git@github.com:TanishBhandari286/dotfiles.git
 
 # 4. Install from Brewfile
 echo "📦 Syncing tools from Brewfile..."
@@ -48,4 +39,4 @@ if [[ "$OSTYPE" != "darwin"* ]]; then
   [ "$SHELL" != "$(which zsh)" ] && sudo chsh -s $(which zsh) $(whoami)
 fi
 
-echo "✅ All set! One-liner complete."
+echo "✅ One-liner complete. Now run ./post-install.sh to decrypt your keys."
