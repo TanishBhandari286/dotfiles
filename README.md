@@ -19,3 +19,5 @@
 ## Architecture: Unified Homebrew
 
 ### This setup treats macOS and Linux as equals by using Homebrew for Linux. This ensures that my versions of Neovim, Lazygit, and Eza are identical whether I'm on my M2 Mac or a refurbished ThinkCentre.
+
+## testing git permissions
