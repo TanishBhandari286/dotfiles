@@ -25,6 +25,8 @@ brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "zsh-completions"
+brew "fd"
+brew "rg"
 
 # --- Mac Specific Casks (Ignored on Linux) ---
 if OS.mac?
