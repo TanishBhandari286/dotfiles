@@ -46,4 +46,6 @@ if OS.mac?
   cask "protonvpn"
   cask "raycast"
   cask "spotify"
+  cask "iina"
+  cask "mullvad-browser"
 end
