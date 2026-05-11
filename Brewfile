@@ -31,9 +31,9 @@ brew "rg"
 # --- Mac Specific Casks (Ignored on Linux) ---
 if OS.mac?
   cask "nikitabobko/tap/aerospace"
+  cask "clockify"
   cask "obs"
   cask "brave-browser"
-  cask "zen"
   cask "font-jetbrains-mono"
   cask "whatsapp"
   cask "ghostty"
@@ -48,4 +48,5 @@ if OS.mac?
   cask "spotify"
   cask "iina"
   cask "mullvad-browser"
+  cask "obsidian"
 end
