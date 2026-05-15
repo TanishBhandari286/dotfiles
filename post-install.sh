@@ -30,4 +30,9 @@ else
   ssh-add "$HOME/.ssh/id_ed25519"
 fi
 
+# 5. Configure Git User
+echo "⚙️  Configuring Git user..."
+git config --global user.email "tanishbhandari91@gmail.com"
+git config --global user.name "Tanish Bhandari"
+
 echo "✅ All fixed!"
