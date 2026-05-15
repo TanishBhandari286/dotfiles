@@ -2,37 +2,39 @@
 
 echo "🔧 Running Post-Install Fixes..."
 
-# 1. Decrypt the key (Matching your actual filename: id_ed25519.age)
+# 1. Optional: Decrypt SSH keys (Only for Tanish's repo)
 if [ -f "$HOME/.ssh/id_ed25519.age" ]; then
-  echo "🔓 Decrypting your private key..."
+  echo "🔓 Found encrypted SSH key. Decrypting..."
   age --decrypt -o "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ed25519.age"
-else
-  echo "❌ Error: id_ed25519.age not found in ~/.ssh/"
-  exit 1
-fi
-
-# 2. Fix Permissions
-if [ -f "$HOME/.ssh/id_ed25519" ]; then
+  
+  # 2. Fix Permissions
   echo "🔒 Setting 600 permissions on private key..."
   chmod 600 "$HOME/.ssh/id_ed25519"
   chmod 644 "$HOME/.ssh/id_ed25519.pub"
-fi
-
-# 3. Fix Git Remote (Using the correct 'git --' syntax)
-echo "🌐 Switching Chezmoi source to SSH remote..."
-chezmoi git -- remote set-url origin git@github.com:TanishBhandari286/dotfiles.git
-
-# 4. Add Key to Agent
-echo "🔑 Adding key to SSH agent..."
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  ssh-add --apple-use-keychain "$HOME/.ssh/id_ed25519"
+  
+  # 3. Add Key to Agent
+  echo "🔑 Adding key to SSH agent..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    ssh-add --apple-use-keychain "$HOME/.ssh/id_ed25519"
+  else
+    ssh-add "$HOME/.ssh/id_ed25519"
+  fi
 else
-  ssh-add "$HOME/.ssh/id_ed25519"
+  echo "⏭️  No encrypted SSH keys found. Skipping key decryption."
 fi
 
-# 5. Configure Git User
-echo "⚙️  Configuring Git user..."
-git config --global user.email "tanishbhandari91@gmail.com"
-git config --global user.name "Tanish Bhandari"
+# 4. Optional: Configure Git (Ask user or use defaults)
+if git config --global user.email &>/dev/null; then
+  echo "✅ Git user already configured: $(git config --global user.name) <$(git config --global user.email)>"
+else
+  echo "📝 Git user not configured. Setting defaults..."
+  # Use environment variables if set, otherwise prompt
+  GIT_EMAIL="${GIT_EMAIL:-tanishbhandari91@gmail.com}"
+  GIT_NAME="${GIT_NAME:-Tanish Bhandari}"
+  
+  git config --global user.email "$GIT_EMAIL"
+  git config --global user.name "$GIT_NAME"
+  echo "✅ Git configured: $GIT_NAME <$GIT_EMAIL>"
+fi
 
-echo "✅ All fixed!"
+echo "✅ Post-install complete!"
