@@ -23,9 +23,15 @@ LOG_FILE="$HOME/.chezmoi-autoupdate.log"
   if [ $PULL_STATUS -eq 0 ]; then
     echo "✅ Pull successful"
     
-    # Apply changes
+    # Apply changes (exclude encrypted files to avoid passphrase prompt)
     echo "🔄 Applying config..."
-    chezmoi apply
+    if [ -z "$AGE_PASSPHRASE" ]; then
+      # No passphrase available, skip encrypted files
+      chezmoi apply --exclude encrypted
+    else
+      # Passphrase available, apply everything
+      chezmoi apply
+    fi
     APPLY_STATUS=$?
     
     if [ $APPLY_STATUS -eq 0 ]; then

@@ -7,7 +7,8 @@ Keep all your machines automatically synced with your latest GitHub changes!
 1. You make changes on your Mac and push to GitHub
 2. Cron job runs periodically on each server
 3. Pulls latest config and applies it automatically
-4. Logs all updates for debugging
+4. **Skips encrypted files** (SSH keys) to avoid passphrase prompts
+5. Logs all updates for debugging
 
 ## Quick Setup
 
@@ -100,3 +101,26 @@ crontab -l
 - First run `post-install.sh` to set up SSH keys
 - The script runs silently (logs to file, no terminal output)
 - All updates are logged for debugging
+- **Encrypted files (SSH keys) are skipped** by default to avoid passphrase prompts
+  - If you want encrypted files synced, set `AGE_PASSPHRASE` environment variable (less secure)
+
+## Encrypted Files During Auto-Update
+
+By default, auto-update **skips encrypted files** (like `dot_ssh/id_ed25519.age`) to avoid blocking on passphrase prompts.
+
+**If you want to sync encrypted files automatically:**
+
+Option A - Set environment variable in crontab:
+```bash
+crontab -e
+# Add to the cron job:
+0 2 * * * AGE_PASSPHRASE="your-passphrase" ~/.local/share/chezmoi/auto-update.sh
+```
+
+Option B - Use SSH agent (more secure):
+```bash
+# SSH agent holds your key after post-install.sh
+# No passphrase needed for auto-update
+```
+
+**Not recommended:** Storing passphrases in crontab is a security risk. It's safer to exclude encrypted files.

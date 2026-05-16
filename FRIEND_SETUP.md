@@ -113,7 +113,24 @@ git commit -m "Customize for my setup"
 git push
 ```
 
-## Step 7: Test on a Fresh Machine
+## Step 7: Enable Auto-Updates (Optional)
+
+Keep your machines automatically synced with your GitHub changes:
+
+```bash
+~/.local/share/chezmoi/setup-autoupdate.sh daily
+```
+
+This runs daily at 2 AM. Options:
+- `hourly` - Check every hour
+- `4hourly` - Check every 4 hours  
+- `daily` - Check daily at 2 AM (default)
+
+Now all your machines stay in sync automatically! 🔄
+
+See [AUTO_UPDATE.md](AUTO_UPDATE.md) for more details.
+
+## Step 8: Test on a Fresh Machine
 
 ### Full Installation (One-Liner)
 
@@ -138,7 +155,7 @@ When prompted:
 - Enter your Git email/name (or it uses defaults)
 - Enter your age passphrase (if using encrypted SSH keys)
 
-## Step 8: Share with Friends
+## Step 9: Share with Friends
 
 Your friends can now run:
 
