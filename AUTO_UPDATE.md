@@ -1,0 +1,102 @@
+# Auto-Update Setup
+
+Keep all your machines automatically synced with your latest GitHub changes!
+
+## How It Works
+
+1. You make changes on your Mac and push to GitHub
+2. Cron job runs periodically on each server
+3. Pulls latest config and applies it automatically
+4. Logs all updates for debugging
+
+## Quick Setup
+
+On each machine you want auto-update:
+
+```bash
+cd ~/.local/share/chezmoi
+chmod +x setup-autoupdate.sh
+./setup-autoupdate.sh daily
+```
+
+That's it! The job now runs daily at 2 AM.
+
+## Frequency Options
+
+```bash
+# Every hour
+./setup-autoupdate.sh hourly
+
+# Every 4 hours (recommended for servers)
+./setup-autoupdate.sh 4hourly
+
+# Daily at 2 AM (default)
+./setup-autoupdate.sh daily
+```
+
+## View Cron Job
+
+```bash
+crontab -l | grep chezmoi
+```
+
+## Check Logs
+
+```bash
+tail -f ~/.chezmoi-autoupdate.log
+```
+
+Or see all updates:
+
+```bash
+cat ~/.chezmoi-autoupdate.log
+```
+
+## Manual Update
+
+You can also manually update anytime:
+
+```bash
+~/.local/share/chezmoi/auto-update.sh
+```
+
+## Remove Auto-Update
+
+```bash
+crontab -e
+# Delete the line with "chezmoi-autoupdate"
+# Save and exit
+```
+
+Or use:
+
+```bash
+crontab -l | grep -v "chezmoi-autoupdate" | crontab -
+```
+
+## Troubleshooting
+
+**Check if cron is running:**
+```bash
+ps aux | grep cron
+```
+
+**Test the script manually:**
+```bash
+~/.local/share/chezmoi/auto-update.sh
+tail ~/.chezmoi-autoupdate.log
+```
+
+**View all cron jobs:**
+```bash
+crontab -l
+```
+
+**SSH key issues:** Make sure you ran `post-install.sh` and your SSH key is added to the agent.
+
+## Important Notes
+
+- Auto-update only works if your dotfiles are **pushed to GitHub** and the machine has **SSH access**
+- First run `post-install.sh` to set up SSH keys
+- The script runs silently (logs to file, no terminal output)
+- All updates are logged for debugging

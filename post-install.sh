@@ -38,3 +38,7 @@ else
 fi
 
 echo "✅ Post-install complete!"
+echo ""
+echo "📌 Optional: Enable auto-updates (keeps this machine in sync with GitHub)"
+echo "   Run: ~/.local/share/chezmoi/setup-autoupdate.sh [hourly|4hourly|daily]"
+echo "   See: ~/.local/share/chezmoi/AUTO_UPDATE.md for details"
