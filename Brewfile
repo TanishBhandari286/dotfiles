@@ -1,5 +1,7 @@
 tap "homebrew/autoupdate"
 tap "nikitabobko/tap"
+tap "tw93/tap"
+brew "mole"
 brew "age"
 brew "bat"
 brew "biome"
