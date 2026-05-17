@@ -54,6 +54,7 @@ alias checkup='echo "Target: $(hostname)"; [ -f ~/.ssh/id_ed25519 ] && echo "✅
 
 # Chezmoi Quick Edits
 alias zdot="chezmoi edit ~/.zshrc"
+alias brewup="brew update && brew upgrade && brew upgrade --cask --greedy && brew cleanup"
 alias tdot="chezmoi edit ~/.tmux.conf"
 alias ndot="chezmoi edit ~/.config/nvim/init.lua"
 
