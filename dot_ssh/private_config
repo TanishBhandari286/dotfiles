@@ -1,6 +1,5 @@
-# --- Global Defaults (Applies to all hosts) ---
+# --- Global Network Defaults ---
 Host *
-    IdentityFile ~/.ssh/.sshid_ed25519
     IdentitiesOnly yes
     ServerAliveInterval 60
     ServerAliveCountMax 3
@@ -9,17 +8,21 @@ Host *
 Host vps
     HostName 69.62.77.27
     User vps
+    IdentityFile ~/.sshid_ed25519
 
 # --- Homelab Kubernetes Cluster ---
 Host node-1
     HostName 192.168.1.11
     User node-1
+    IdentityFile ~/.sshid_ed25519
 
 Host node-2
     HostName 192.168.1.12
     User node-2
+    IdentityFile ~/.sshid_ed25519
 
 # --- Workstations / Other Hosts ---
 Host tanish-server
     HostName 192.168.1.8
     User tanish
+    IdentityFile ~/.sshid_ed25519
